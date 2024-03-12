@@ -515,10 +515,9 @@ cat index.html
 ---------------------------------**End Of Lab 5**---------------------------------
 
 ## Lab-6: Create a Container with TMPFS Mount
+```
 docker run -d -it --name tmpmount --mount type=tmpfs,destination=/app nginx:latest
 ```
-
-
 docker container inspect tmpmount
 ```
 ---------------------------------**End Of Lab 6**---------------------------------

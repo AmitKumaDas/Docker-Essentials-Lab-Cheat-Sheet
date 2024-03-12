@@ -518,6 +518,8 @@ cat index.html
 ```
 docker run -d -it --name tmpmount --mount type=tmpfs,destination=/app nginx:latest
 ```
+```
 docker container inspect tmpmount
+```
 ```
 ---------------------------------**End Of Lab 6**---------------------------------

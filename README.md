@@ -521,5 +521,5 @@ docker run -d -it --name tmpmount --mount type=tmpfs,destination=/app nginx:late
 ```
 docker container inspect tmpmount
 ```
-```
+
 ---------------------------------**End Of Lab 6**---------------------------------

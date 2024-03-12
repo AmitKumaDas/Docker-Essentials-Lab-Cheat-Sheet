@@ -211,4 +211,305 @@ docker image ls
 docker image rm < replace image id >
 ```
 
----------------------------------**End Of Lab 1**---------------------------------
+---------------------------------**End Of Lab 2**---------------------------------
+## Lab-3: Docker container life cycle
+
+### Task 1: Docker Lifecycle 
+Pull Docker Image
+```
+docker pull httpd
+```
+List all images available in Local Repo
+```
+docker image ls
+```
+Check the history of the image
+```
+docker image history httpd
+```
+Create container
+```
+docker container create httpd
+```
+List all containers
+```
+docker container ls -a
+```
+Start the created container
+```
+docker container start < container id/name >
+```
+```
+docker container ls
+```
+Stop the created container
+```
+docker container stop < container id/Name >
+```
+```
+docker container ls -a
+```
+```
+docker container start < container id/Name >
+```
+Pause the container
+```
+docker container pause < container id/Name >
+```
+```
+docker container ls -a
+```
+Unpause the container
+```
+docker container unpause < container id/Name >
+```
+```
+docker container ls -a
+```
+```
+docker exec -it < container id/name > /bin/bash
+```
+```
+cd htdocs
+```
+```
+apt update
+```
+```
+apt install wget -y
+```
+```
+rm index.html
+```
+```
+wget https://s3.ap-south-1.amazonaws.com/files.cloudthat.training/devops/docker-essentials/index.html
+```
+```
+exit
+```
+Save the container as an image 
+```
+docker commit < replace container id/name > myhttpd:version
+```
+```
+docker image ls
+```
+Create a new container with the newly created image
+```
+docker run -d -p 8080:80 myhttpd:version
+```
+```
+curl < public IP>:8080  #Public IP of your host machine
+```
+```
+docker container ls
+```
+Check the logs of the container
+```
+docker logs < container id/name >
+```
+Monitor real-time resource usage for running Docker containers
+
+docker stats         # Shows usage statistics for only running containers
+
+docker stats -a      # Shows usage for all containers
+```
+docker stats < container id/name > 
+```
+```
+docker container ls
+```
+```
+docker stop < replace container id/name >
+```
+Remove a stopped container
+```
+docker container rm < replace container id/name > 
+```
+Remove a running container 
+```
+docker container rm < replace container id/name > -f
+```
+```
+docker image ls
+```
+```
+docker image rm < replace image id/name > < replace image id/name >
+```
+```
+docker image ls
+```
+```
+docker image ls -a
+```
+
+---------------------------------**End Of Lab 3**---------------------------------
+## Lab-4:  Bind Mount in Docker
+
+### Task 1: Starting Docker Containers Bind Mounts
+```
+mkdir /home/ubuntu/share
+```
+```
+echo 'Hello From Docker Host' > /home/ubuntu/share/index.html
+```
+```
+docker run -it --name container1 -p 80:80 -v /home/ubuntu/share:/var/www/html ubuntu:18.04 /bin/bash
+```
+```
+apt-get update -y && apt-get install apache2 -y
+```
+```
+service apache2 start
+```
+```
+service apache2 status
+```
+```
+curl localhost:80
+```
+```
+echo 'Hello From Container1' > /var/www/html/index.html
+```
+```
+curl localhost:80
+```
+Press Ctrl+P+Q, to switch back to Host
+```
+docker inspect container1
+```
+Check for keyword `Mounts`
+```
+docker run -it --name container2 -v /home/ubuntu/share:/var/www/html ubuntu:18.04
+```
+```
+echo 'Hello From Container2' > /var/www/html/index.html 
+```
+```
+exit
+```
+```
+docker ps -a
+```
+```
+docker rm -vf container1 container2 
+```
+```
+cat /home/ubuntu/share/index.html
+```
+
+### Task 2: Create a bind mount with --mount option and verify it
+```
+docker run -d -it --name container3 --mount type=bind,source=/home/ubuntu/share/,target=/app nginx:latest
+```
+```
+docker inspect container3
+```
+```
+docker exec -it container3 bash
+```
+```
+cd app && ls
+```
+```
+cat index.html
+```
+```
+echo "hello from container3" > index.html
+```
+```
+exit
+```
+```
+cd /home/ubuntu/share/
+```
+```
+cat index.html
+```
+
+---------------------------------**End Of Lab 4**---------------------------------
+
+## Lab-5: Bind Mount in Docker
+
+### Task 1: Starting Docker Containers Bind Mounts
+```
+mkdir /home/ubuntu/share
+```
+```
+echo 'Hello From Docker Host' > /home/ubuntu/share/index.html
+```
+```
+docker run -it --name container1 -p 80:80 -v /home/ubuntu/share:/var/www/html ubuntu:18.04 /bin/bash
+```
+```
+apt-get update -y && apt-get install apache2 -y
+```
+```
+service apache2 start
+```
+```
+service apache2 status
+```
+```
+curl localhost:80
+```
+```
+echo 'Hello From Container1' > /var/www/html/index.html
+```
+```
+curl localhost:80
+```
+Press Ctrl+P+Q, to switch back to Host
+```
+docker inspect container1
+```
+Check for keyword `Mounts`
+```
+docker run -it --name container2 -v /home/ubuntu/share:/var/www/html ubuntu:18.04
+```
+```
+echo 'Hello From Container2' > /var/www/html/index.html 
+```
+```
+exit
+```
+```
+docker ps -a
+```
+```
+docker rm -vf container1 container2 
+```
+```
+cat /home/ubuntu/share/index.html
+```
+
+### Task 2: Create a bind mount with --mount option and verify it
+```
+docker run -d -it --name container3 --mount type=bind,source=/home/ubuntu/share/,target=/app nginx:latest
+```
+```
+docker inspect container3
+```
+```
+docker exec -it container3 bash
+```
+```
+cd app && ls
+```
+```
+cat index.html
+```
+```
+echo "hello from container3" > index.html
+```
+```
+exit
+```
+```
+cd /home/ubuntu/share/
+```
+```
+cat index.html
+```
+
+---------------------------------**End Of Lab 5**---------------------------------
